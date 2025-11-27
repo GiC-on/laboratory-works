@@ -27,10 +27,10 @@ void Sx(double x, double eps)
 
 	while(abs(yx - sum) > eps)
 	{
-		prev = -1.0 * cos(k * x) / (k * k - 1);
-		sum += prev;
 		k++;
 		iter++;
+		prev = -1.0 * cos(k * x) / (k * k - 1);
+		sum += prev;
 	}
 
 	std::cout << std::setw(15) << sum << "|" << std::setw(5) << iter << "\n";
@@ -47,7 +47,7 @@ int main()
 				<< " accuracy: " << eps << "\n";
 	std::cout   << std::setw(6) << "x |" << std::setw(16) << "Y(x)    |"
 				<< std::setw(16) << "S(x)    |" << std::setw(6) << " iter"
-				<< "\n--------------------------------------------\n";
+				<< "\n----------------------------------------------\n";
 
 	for(double x = a; x < b + eps; x += h)
 	{
