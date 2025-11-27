@@ -14,28 +14,28 @@ int main()
 
 	// подсчёт количества слов
 	int wordsCount = 1;
-	for (int i = 0; i < str.size()-1; i++)
+	for(int i = 0; i < str.size()-1; i++)
 	{
-		if (str[i] == ' ') wordsCount++;
+		if(str[i] == ' ') wordsCount++;
 	}
 
 	// создание массива и заполнение словами
 	std::vector<std::string> words {str.substr(0, str.find(' '))};
 	str.replace(0, str.find(' ') + 1, "");
 
-	for (int i = 1; i < wordsCount; i++)
+	for(int i = 1; i < wordsCount; i++)
 	{
 		words.push_back(str.substr(0, str.find(' ')));
 		str.erase(0, str.find(' ')+1);
 	}
 
 	// сортировка массива через Selection Sort
-	for (int i = 0; i < wordsCount; i++)
+	for(int i = 0; i < wordsCount; i++)
 	{
 		int firstIndex = i;
-		for (int j = i+1; j < wordsCount; j++)
+		for(int j = i+1; j < wordsCount; j++)
 		{
-			if (words[j] < words[firstIndex]) firstIndex = j;
+			if(words[j] < words[firstIndex]) firstIndex = j;
 		}
 
 		std::string buff = words[i];
