@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int main()
 {
@@ -11,59 +12,61 @@ int main()
 
 	char symbs[] = "qweasdzxcQWEASDZXC";	// строка используемых в игре клавиш
 	char bomb = symbs[rand() % 9];	// назначение одной из клавиш статуса бомбы
+	printf("bomb: %c", bomb);
 
-	short keys [9] = {0,0,0,0,0,0,0,0,0};	// массив-маска нажатых клавиш
+	short keys[9] = { 0,0,0,0,0,0,0,0,0 };	// массив-маска нажатых клавиш
 	short keysPressed = 0;	// счётчик нажатых клавиш
 
 	char key;	// символ нажатой клавиши
 
-	while(1)
+	while (1)
 	{
-		if(_kbhit())	// если нажата какая-либо клавиша...
+		if (_kbhit())	// если нажата какая-либо клавиша...
 		{
 			key = _getch();	// ...берём её символ
+			printf("\nkey: %c", key);
 
-			if(key == bomb || key+32 == bomb)	// проверка на клавишу бомбы
+			if (key == bomb || key + 32 == bomb)	// проверка на клавишу бомбы
 			{
 				// сигнал поражения
-				//Sleep(150);
-				Beep(550, 1000);
+				Beep(440, 1000);
 
 				// назначение новой бомбы
 				bomb = symbs[rand() % 9];
+				printf("\nLose!\n\nbomb: %c", bomb);
 
 				// очистка массива-маски и счётчика для следующей игры
 				keysPressed = 0;
-				for(int i = 0; i < 9; i++) {keys[i] = 0;}
+				for (int i = 0; i < 9; i++) { keys[i] = 0; }
 			}
-			else if(keysPressed >= 7)	// если нажаты все клавиши, кроме заминированной
+			else if (keysPressed >= 7)	// если нажаты все клавиши, кроме заминированной
 			{
 				// победный сигнал
-				//Sleep(150);
-				Beep(550, 200);
+				Beep(440, 200);
 				Sleep(200);
-				Beep(550, 200);
+				Beep(440, 200);
 				Sleep(200);
-				Beep(550, 200);
+				Beep(440, 200);
 
 				// назначение новой бомбы
 				bomb = symbs[rand() % 9];
+				printf("\nWin!\n\nbomb: %c", bomb);
 
 				// очистка массива-маски и счётчика для следующей игры
 				keysPressed = 0;
-				for (int i = 0; i < 9; i++) {keys[i] = 0;}
+				for (int i = 0; i < 9; i++) { keys[i] = 0; }
 			}
 			else
 			{
-				for(int i = 0; i < 9; i++)
+				for (int i = 0; i < 9; i++)
 				{
 					// если нажата новая клавиша из игрового поля...
-					if((key == symbs[i] || key == symbs[i+9]) && !keys[i])
+					if ((key == symbs[i] || key == symbs[i + 9]) && !keys[i])
 					{
 						// ...увеличить счётчик и отметить нажатую клавишу в массиве-маске
 						keys[i] = 1;
 						keysPressed++;
-						Beep(400, 60);
+						Beep(330, 60);
 					}
 				}
 			}
